@@ -28,14 +28,14 @@ public class LinkedListDeque<T> {
     }
 
     private T getRecursive(int index, DNode p) {
-        if (index == 0){
+        if (index == 0) {
             return p.first;
         }
         return getRecursive(index - 1, p.next);
     }
     /** 用递归的方法获取index处的元素*/
     public T getRecursive(int index) {
-        if (index >= size){
+        if (index >= size) {
             return null;
         }
         return getRecursive(index, sentinel.next);
@@ -74,7 +74,7 @@ public class LinkedListDeque<T> {
     /** 打印双端队列*/
     public void printDeque() {
         DNode p = sentinel.next;
-        while (p != sentinel){
+        while (p != sentinel) {
             System.out.print(p.first + " ");
             p = p.next;
         }
@@ -82,10 +82,11 @@ public class LinkedListDeque<T> {
 
     /** 移除并返回双端队列的头部元素*/
     public T removeFirst() {
-        if (size == 0){
+        if (size == 0) {
             return null;
         }
         T res = sentinel.next.first;
+        sentinel.next.next.prev = sentinel;
         sentinel.next = sentinel.next.next;
         size--;
         return res;
@@ -93,10 +94,11 @@ public class LinkedListDeque<T> {
 
     /** 移除并返回双端队列的尾部元素*/
     public T removeLast() {
-        if(size == 0){
+        if (size == 0) {
             return null;
         }
         T res = sentinel.prev.first;
+        sentinel.prev.next = sentinel;
         sentinel.prev = sentinel.prev.prev;
         size--;
         return res;
@@ -104,12 +106,12 @@ public class LinkedListDeque<T> {
 
     /** 用迭代的方式获取index处的元素*/
     public T get(int index) {
-        if(index >= size){
+        if (index >= size) {
             return null;
         }
         DNode p = sentinel.next;
         //前面的判断条件保证了index一定是在链表中的
-        while(index > 0){
+        while (index > 0) {
             p = p.next;
             index--;
         }

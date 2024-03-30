@@ -24,7 +24,7 @@ public class ArrayDeque<T> {
     }
 
     private int minusOne(int index) {
-        if (index == 0){
+        if (index == 0) {
             return capability - 1;
         }
         return index - 1;
@@ -39,7 +39,7 @@ public class ArrayDeque<T> {
     }
 
     public void addFirst(T item) {
-        if (size == capability){
+        if (size == capability) {
             resize();
         }
         first = minusOne(first);
@@ -48,7 +48,7 @@ public class ArrayDeque<T> {
     }
 
     public void addLast(T item) {
-        if (size == capability){
+        if (size == capability) {
             resize();
         }
         arr[last] = item;
@@ -84,7 +84,7 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
-        if (size == 0){
+        if (size == 0) {
             return null;
         }
         last = minusOne(last);

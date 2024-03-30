@@ -2,7 +2,7 @@
 public class LinkedListDeque<T> {
     private DNode sentinel;
     private int size;
-    public class DNode{
+    public class DNode {
         T first;
         DNode next;
         DNode prev;
@@ -98,7 +98,7 @@ public class LinkedListDeque<T> {
             return null;
         }
         T res = sentinel.prev.first;
-        sentinel.prev.next = sentinel;
+        sentinel.prev.next.next = sentinel;
         sentinel.prev = sentinel.prev.prev;
         size--;
         return res;

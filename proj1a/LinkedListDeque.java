@@ -7,42 +7,42 @@ public class LinkedListDeque<T> {
         DNode next;
         DNode prev;
 
-        public DNode(T item){
+        public DNode(T item) {
             this.first = item;
             this.next = null;
             this.prev = null;
         }
 
-        public DNode(){
+        public DNode() {
             this.next = null;
             this.prev = null;
         }
     }
 
     /** 创建一个空的双端队列*/
-    public LinkedListDeque(){
+    public LinkedListDeque() {
         sentinel = new DNode();
         sentinel.prev = sentinel;
         sentinel.next = sentinel;
         size = 0;
     }
 
-    private T getRecursive(int index, DNode p){
-        if(index == 0){
+    private T getRecursive(int index, DNode p) {
+        if (index == 0){
             return p.first;
         }
         return getRecursive(index - 1, p.next);
     }
     /** 用递归的方法获取index处的元素*/
-    public T getRecursive(int index){
-        if(index >= size){
+    public T getRecursive(int index) {
+        if (index >= size){
             return null;
         }
-        return getRecursive(index,sentinel.next);
+        return getRecursive(index, sentinel.next);
     }
 
     /** 在双端队列头部加入元素*/
-    public void addFirst(T item){
+    public void addFirst(T item) {
         DNode p = new DNode(item);
         p.next = sentinel.next;
         p.prev = sentinel;
@@ -52,7 +52,7 @@ public class LinkedListDeque<T> {
     }
 
     /** 在双端队列的尾部加入元素*/
-    public void addLast(T item){
+    public void addLast(T item) {
         DNode p = new DNode(item);
         p.prev = sentinel.prev;
         sentinel.prev.next = p;
@@ -62,27 +62,27 @@ public class LinkedListDeque<T> {
     }
 
     /** 判断双端队列是否为空*/
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return size == 0;
     }
 
     /** 返回双端队列的长度*/
-    public int size(){
+    public int size() {
         return size;
     }
 
     /** 打印双端队列*/
-    public void printDeque(){
+    public void printDeque() {
         DNode p = sentinel.next;
-        while(p != sentinel){
+        while (p != sentinel){
             System.out.print(p.first + " ");
             p = p.next;
         }
     }
 
     /** 移除并返回双端队列的头部元素*/
-    public T removeFirst(){
-        if(size == 0){
+    public T removeFirst() {
+        if (size == 0){
             return null;
         }
         T res = sentinel.next.first;
@@ -92,7 +92,7 @@ public class LinkedListDeque<T> {
     }
 
     /** 移除并返回双端队列的尾部元素*/
-    public T removeLast(){
+    public T removeLast() {
         if(size == 0){
             return null;
         }
@@ -103,7 +103,7 @@ public class LinkedListDeque<T> {
     }
 
     /** 用迭代的方式获取index处的元素*/
-    public T get(int index){
+    public T get(int index) {
         if(index >= size){
             return null;
         }

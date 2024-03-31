@@ -18,7 +18,7 @@ public class ArrayDeque<T> {
 
     private int addOne(int index) {
         //如果用capability会导致数组越界
-        if(index == capability - 1){
+        if (index == capability - 1) {
             return 0;
         }
         return index + 1;
@@ -47,7 +47,7 @@ public class ArrayDeque<T> {
     }
 
     //当我们发现冗余空间太多的时候就需要缩小数组
-    private void shrink(){
+    private void shrink() {
         while ((double) size / capability < 0.3) {
             capability -= 1;
         }
@@ -60,7 +60,7 @@ public class ArrayDeque<T> {
         last = size;
     }
 
-    private boolean waste(){
+    private boolean waste() {
         return (double) size / capability < 0.3;
     }
 
@@ -105,7 +105,7 @@ public class ArrayDeque<T> {
         T res = arr[first];
         first = addOne(first);
         size--;
-        if (waste()) {
+        if (capability >= 16 && waste()) {
             shrink();
         }
         return res;
@@ -118,14 +118,14 @@ public class ArrayDeque<T> {
         last = minusOne(last);
         T res = arr[last];
         size--;
-        if (waste()) {
+        if (capability >= 16 && waste()) {
             shrink();
         }
         return res;
     }
 
     public T get(int index) {
-        if(index < 0 || index >= size){
+        if (index < 0 || index >= size) {
             return null;
         }
         //确保下标是在数组范围内的

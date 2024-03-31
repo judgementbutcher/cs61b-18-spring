@@ -1,3 +1,5 @@
+import javax.management.openmbean.ArrayType;
+
 public class ArrayDeque<T> {
 
     private  int capability;
@@ -129,7 +131,27 @@ public class ArrayDeque<T> {
             return null;
         }
         //确保下标是在数组范围内的
-        return arr[first + index % capability];
+        return arr[(first + index) % capability];
     }
+
+//    public static void main(String []args){
+//        ArrayDeque<Integer> a = new ArrayDeque<>();
+//        a.addFirst(0);
+//        a.addFirst(1);
+//        a.get(1);
+//        a.removeLast();
+//        a.removeLast();
+//        a.addFirst(5);
+//        a.addLast(7);
+//        a.removeFirst();
+//        a.addLast(9);
+//        a.addFirst(10);
+//        a.addLast(11);
+//        a.get(0);
+//        a.removeFirst();
+//        a.removeLast();
+//        a.addLast(15);
+//        System.out.println(a.get(1));
+//    }
 
 }

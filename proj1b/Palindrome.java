@@ -8,11 +8,11 @@ public class Palindrome {
         return res;
     }
 
-    private boolean isPalindrome(Deque<Character> ans){
-        if (ans.size() <= 1){
+    private boolean isPalindrome(Deque<Character> ans) {
+        if (ans.size() <= 1) {
             return true;
         }
-        if(ans.removeFirst() != ans.removeLast()){
+        if (ans.removeFirst() != ans.removeLast()) {
             return false;
         }
         else return isPalindrome(ans);
@@ -22,17 +22,17 @@ public class Palindrome {
         return isPalindrome(res);
     }
 
-    private boolean isPalindrome(Deque<Character> ans, CharacterComparator cc){
-        if (ans.size() <= 1){
+    private boolean isPalindrome(Deque<Character> ans, CharacterComparator cc) {
+        if (ans.size() <= 1) {
             return true;
         }
-        if(!cc.equalChars(ans.removeFirst(),ans.removeLast())){
+        if (!cc.equalChars(ans.removeFirst(), ans.removeLast())) {
             return false;
         }
-        else return isPalindrome(ans,cc);
+        else return isPalindrome(ans, cc);
     }
-    public boolean isPalindrome(String word, CharacterComparator cc){
+    public boolean isPalindrome(String word, CharacterComparator cc) {
         Deque<Character> res = wordToDeque(word);
-        return isPalindrome(res,cc);
+        return isPalindrome(res, cc);
     }
 }

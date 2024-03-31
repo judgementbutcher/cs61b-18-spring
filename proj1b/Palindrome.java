@@ -14,8 +14,7 @@ public class Palindrome {
         }
         if (ans.removeFirst() != ans.removeLast()) {
             return false;
-        }
-        else {
+        } else {
             return isPalindrome(ans);
         }
     }
@@ -30,8 +29,7 @@ public class Palindrome {
         }
         if (!cc.equalChars(ans.removeFirst(), ans.removeLast())) {
             return false;
-        }
-        else {
+        } else {
             return isPalindrome(ans, cc);
         }
     }

@@ -36,7 +36,8 @@ public class ArrayDeque<T> {
     //可以采用二分的方式，每次到大小了就申请两倍,然后将元素从新数组的开始位置排列
     private void resize() {
         T [] res = (T []) new Object[2 * capability];
-        for (int i = 0, j = first; j != last; j = addOne(j), i++) {
+        //假设前一次插入刚好插满,此时first和last在同一个位置
+        for (int i = 0, j = first; i < size; j = addOne(j), i++) {
             res[i] = arr[j];
         }
         arr = res;
@@ -51,7 +52,7 @@ public class ArrayDeque<T> {
             capability -= 1;
         }
         T [] ans = (T []) new Object[capability];
-        for (int i = 0, j = first; j != last; j = addOne(j), i++) {
+        for (int i = 0, j = first; i < size; j = addOne(j), i++) {
             ans[i] = arr[j];
         }
         arr = ans;
@@ -60,7 +61,7 @@ public class ArrayDeque<T> {
     }
 
     private boolean waste(){
-        return (double) size / capability >= 0.3;
+        return (double) size / capability < 0.3;
     }
 
     public void addFirst(T item) {

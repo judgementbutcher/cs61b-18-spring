@@ -17,7 +17,8 @@ public class ArrayDeque<T> {
     }
 
     private int addOne(int index) {
-        return index + 1 % capability;
+        //如果用capability会导致数组越界
+        return index + 1 % (capability - 1);
     }
 
     private int minusOne(int index) {
@@ -32,7 +33,7 @@ public class ArrayDeque<T> {
     //可以采用二分的方式，每次到大小了就申请两倍,然后将元素从新数组的开始位置排列
     private void resize() {
         T [] res = (T []) new Object[2 * capability];
-        for(int i = 0,j = first;j != last;j = addOne(j),i++){
+        for (int i = 0, j = first; j != last; j = addOne(j), i++) {
             res[i] = arr[j];
         }
         arr = res;
@@ -43,11 +44,11 @@ public class ArrayDeque<T> {
 
     //当我们发现冗余空间太多的时候就需要缩小数组
     private void shrink(){
-        while ((double)size / capability < 0.3) {
+        while ((double) size / capability < 0.3) {
             capability -= 1;
         }
         T [] ans = (T []) new Object[capability];
-        for(int i = 0,j = first;j != last;j = addOne(j),i++){
+        for (int i = 0, j = first; j != last; j = addOne(j), i++) {
             ans[i] = arr[j];
         }
         arr = ans;
@@ -55,8 +56,8 @@ public class ArrayDeque<T> {
         last = size;
     }
 
-    private boolean is_waste(){
-        return (double)size / capability >= 0.3;
+    private boolean waste(){
+        return (double) size / capability >= 0.3;
     }
 
     public void addFirst(T item) {
@@ -100,7 +101,7 @@ public class ArrayDeque<T> {
         T res = arr[first];
         first = addOne(first);
         size--;
-        if (is_waste()) {
+        if (waste()) {
             shrink();
         }
         return res;
@@ -113,14 +114,18 @@ public class ArrayDeque<T> {
         last = minusOne(last);
         T res = arr[last];
         size--;
-        if (is_waste()) {
+        if (waste()) {
             shrink();
         }
         return res;
     }
 
     public T get(int index) {
-        return arr[first + index % capability];
+        if(index < 0 || index >= size){
+            return null;
+        }
+        //确保下标是在数组范围内的
+        return arr[first + index % (capability - 1)];
     }
 
 }

@@ -105,6 +105,11 @@ public class IntList {
         return new IntList(A.first, catenate(A.rest, B));
     }
 
+    public  IntList addFirst(int f)
+    {
+        return new IntList(f,this);
+    }
+
 
 
 

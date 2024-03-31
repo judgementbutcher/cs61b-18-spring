@@ -3,11 +3,9 @@ public class ArrayDeque<T> {
     private  int capability;
     private int size;
     private T [] arr;
-
     private int first;
     private int last;
 
-    private double usage;
 
 
     public ArrayDeque() {
@@ -16,7 +14,6 @@ public class ArrayDeque<T> {
         size = 0;
         first = 0;
         last = 0;
-        usage = 0;
     }
 
     private int addOne(int index) {
@@ -30,12 +27,36 @@ public class ArrayDeque<T> {
         return index - 1;
     }
 
-    //可以采用二分的方式，每次到大小了就申请两倍
+    /** resize 和 shrink 不能直接使用一个arraycopy，因为可能会出现到达结尾然后取模到最开始的情况*/
+
+    //可以采用二分的方式，每次到大小了就申请两倍,然后将元素从新数组的开始位置排列
     private void resize() {
         T [] res = (T []) new Object[2 * capability];
-        System.arraycopy(arr, first, res, first, size);
+        for(int i = 0,j = first;j != last;j = addOne(j),i++){
+            res[i] = arr[j];
+        }
         arr = res;
         capability *= 2;
+        first = 0;
+        last = size;
+    }
+
+    //当我们发现冗余空间太多的时候就需要缩小数组
+    private void shrink(){
+        while ((double)size / capability < 0.3) {
+            capability -= 1;
+        }
+        T [] ans = (T []) new Object[capability];
+        for(int i = 0,j = first;j != last;j = addOne(j),i++){
+            ans[i] = arr[j];
+        }
+        arr = ans;
+        first = 0;
+        last = size;
+    }
+
+    private boolean is_waste(){
+        return (double)size / capability >= 0.3;
     }
 
     public void addFirst(T item) {
@@ -65,14 +86,13 @@ public class ArrayDeque<T> {
     }
 
     public void printDeque() {
-        for (int i = first; i != last; i = (i + 1) % capability) {
+        for (int i = first; i != last; i = addOne(i)) {
             System.out.print(arr[i] + " ");
         }
         System.out.println();
     }
 
     //在remove函数中，我们要时刻检查usage的比率，如果过大，就需要释放一些空间
-
     public T removeFirst() {
         if (size == 0) {
             return null;
@@ -80,6 +100,9 @@ public class ArrayDeque<T> {
         T res = arr[first];
         first = addOne(first);
         size--;
+        if (is_waste()) {
+            shrink();
+        }
         return res;
     }
 
@@ -90,6 +113,9 @@ public class ArrayDeque<T> {
         last = minusOne(last);
         T res = arr[last];
         size--;
+        if (is_waste()) {
+            shrink();
+        }
         return res;
     }
 

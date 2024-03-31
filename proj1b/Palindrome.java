@@ -15,7 +15,9 @@ public class Palindrome {
         if (ans.removeFirst() != ans.removeLast()) {
             return false;
         }
-        else return isPalindrome(ans);
+        else {
+            return isPalindrome(ans);
+        }
     }
     public boolean isPalindrome(String word) {
         Deque<Character> res = wordToDeque(word);
@@ -29,7 +31,9 @@ public class Palindrome {
         if (!cc.equalChars(ans.removeFirst(), ans.removeLast())) {
             return false;
         }
-        else return isPalindrome(ans, cc);
+        else {
+            return isPalindrome(ans, cc);
+        }
     }
     public boolean isPalindrome(String word, CharacterComparator cc) {
         Deque<Character> res = wordToDeque(word);

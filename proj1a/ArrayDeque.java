@@ -18,7 +18,10 @@ public class ArrayDeque<T> {
 
     private int addOne(int index) {
         //如果用capability会导致数组越界
-        return index + 1 % (capability - 1);
+        if(index == capability - 1){
+            return 0;
+        }
+        return index + 1;
     }
 
     private int minusOne(int index) {
@@ -125,7 +128,7 @@ public class ArrayDeque<T> {
             return null;
         }
         //确保下标是在数组范围内的
-        return arr[first + index % (capability - 1)];
+        return arr[first + index % capability];
     }
 
 }

@@ -4,34 +4,35 @@ import edu.princeton.cs.algs4.StdRandom;
 import org.junit.Test;
 
 public class TestArrayDequeGold {
+    private static final int GAMBLE = 10;
     @Test
-    public void testArrayDeque(){
+    public void testArrayDeque() {
         StudentArrayDeque<Integer> a = new StudentArrayDeque<>();
         ArrayDequeSolution<Integer> b = new ArrayDequeSolution<>();
         String errorMessage = "";
-        while(true) {
+        while (true) {
             double numberBetweenZeroAndOne = StdRandom.uniform();
-            Integer num = StdRandom.uniform(10);
+            Integer num = StdRandom.uniform(GAMBLE);
             if (numberBetweenZeroAndOne <= 0.25) {
-                    a.addFirst(num);
-                    b.addFirst(num);
-                    errorMessage += "addFirst(" + num + ")" + "\n";
-            }else if (numberBetweenZeroAndOne > 0.25 && numberBetweenZeroAndOne <= 0.5) {
-                if(!a.isEmpty() && !b.isEmpty()){
+                a.addFirst(num);
+                b.addFirst(num);
+                errorMessage += "addFirst(" + num + ")" + "\n";
+            } else if (numberBetweenZeroAndOne > 0.25 && numberBetweenZeroAndOne <= 0.5) {
+                if (!a.isEmpty() && !b.isEmpty()) {
                     Integer an = a.removeFirst();
                     Integer bn = b.removeFirst();
                     errorMessage += "removeFirst()" + "\n";
-                    assertEquals(errorMessage,an, bn);
+                    assertEquals(errorMessage, an, bn);
                 }
 
-            }else if (numberBetweenZeroAndOne > 0.5 && numberBetweenZeroAndOne <= 0.75) {
-                if(!a.isEmpty() && !b.isEmpty()) {
+            } else if (numberBetweenZeroAndOne > 0.5 && numberBetweenZeroAndOne <= 0.5 + 0.25) {
+                if (!a.isEmpty() && !b.isEmpty()) {
                     Integer an = a.removeLast();
                     Integer bn = b.removeLast();
                     errorMessage += "removeLast()" + "\n";
-                    assertEquals(errorMessage,an, bn);
+                    assertEquals(errorMessage, an, bn);
                 }
-            }else if (numberBetweenZeroAndOne > 0.75) {
+            } else if (numberBetweenZeroAndOne > 0.5 + 0.25) {
                 a.addLast(num);
                 b.addLast(num);
                 errorMessage += "addLast(" + num + ")" + "\n";
